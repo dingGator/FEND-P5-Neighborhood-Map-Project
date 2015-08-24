@@ -15,14 +15,6 @@ function loadData() {
     var cityStr = $('#city').val();
     var address = streetStr + ', ' + cityStr;
 
-    $greeting.text('Philadelphia...Learn..Live..Love ');
-
-
-    // load streetview
-    var streetviewUrl = 'http://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + address + '';
-
-        $body.append('<img class="bgimg" src="' + streetviewUrl + '">');
-
 /*
 // article search Key: 8762af37085203c886c425fe2a6f6adc:10:72653839
 // top stories key: Key: 2274487755d72dbca286293624040faf:0:72653839

@@ -1,85 +1,194 @@
-var philFav = [
+var philaFav = [
 	{
-		clickCount: 0,
 		name:'National Constitution Center',
-//		imgSrc: 'img/cat_picture1.jpg',
-//		imgAttribution: 'http://www.flickr.com/photos/big',
-//		nicknames:['Orange', 'Brown', 'Red', 'Blue', 'Green']
+		lat:39.953904,
+		lng:-75.149066,
 	},
 	{
-		clickCount: 0,
 		name:'Philadelphia Museum of Art',
-//		imgSrc: 'img/cat_picture2.jpeg',
-//		imgAttribution: 'http://www.flickr.com/photos/big',
-//		nicknames:['Messy']
+		lat: 39.965590,
+		lng: -75.180998,
 	},
 	{
-		clickCount: 0,
 		name:'Independence Hall',
-//		imgSrc: 'img/cat_picture3.jpeg',
-//		imgAttribution: 'http://www.flickr.com/photos/big',
-//		nicknames:['Sissssy']
+		lat: 39.94880,
+		lng: -75.150068,
 	},
 	{
-		clickCount: 0,
 		name:'Franklin Institute',
-//		imgSrc: 'img/cat_picture4.jpeg',
-//		imgAttribution: 'http://www.flickr.com/photos/big',
-//		nicknames:['Stripy']
+		lat: 39.958223,
+		lng: -75.173145,
 	},
 	{
-		clickCount: 0,
 		name:'Liberty Bell',
-//		imgSrc: 'img/cat_picture5.jpeg',
-//		imgAttribution: 'http://www.flickr.com/photos/big',
-//		nicknames:['Noisy']
+		lat: 39.949702,
+		lng: -75.150219,
 	},
+	{
+		name:'Reading Terminal Market',
+		lat: 39.952614,
+		lng: -75.159444,
+	},
+	{
+		name:'Chinatown',
+		lat: 39.954568,
+		lng: -75.156084,
+	},
+
 
 ]
-var Phila = function(data){
-	this.clickCount = ko.observable(data.clickCount);
-	this.name = ko.observable(data.name);
-//	this.imgSrc = ko.observable(data.imgSrc);
-//	this.imgAttribution = ko.observable(data.imgAttribution);
-//	this.nicknames =ko.observableArray(data.nicknames);
 
-	this.title= ko.computed(function(){
-		var title;
-		var clicks = this.clickCount();
-		if (clicks < 5) {
-			title = 'Newborn';
-		} else if (clicks < 15) {
-			title = 'Infant';
-		} else if (clicks < 20) {
-			title = 'Child';
-		} else if (clicks < 25) {
-			title = 'Teen';
-		} else if (clicks < 30) {
-			title = 'Adult';
-		} else {
-			title = 'Ninja';
-		}
-		return title;
+var map;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 39.9500, lng: -75.1667},
+    zoom: 15
+  });
+for (var i =0; i< philaFav.length; i++) {
+ var marker = new google.maps.Marker({
+    position: philaFav[i],
+    map: map,
+    title: philaFav[i].name
+  });
+};
 
-	}, this);
+var infowindow;
+function createMarker(place) {
+  	var placeLoc = place.geometry.location;
+  	var marker = new google.maps.Marker({
+    	map: map,
+    	position: place.geometry.location
+  });
 
-var ViewModel = function() {
-	var self = this;
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
 
-	this.PhilaList = ko.observableArray([]);
+var input = document.getElementById('pac-input');
+var searchBox = new google.maps.places.SearchBox(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-	philFav.forEach(function(PhilaItem){
-		self.PhilaList.push(new Phila(philaItem));
-	});
-	this.currentPhila = ko.observable(this.PhilaList()[0]);
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener('bounds_changed', function() {
+    searchBox.setBounds(map.getBounds());
+  });
+    var markers = [];
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
 
-	this.incrementCounter = function(){
-		self.currentPhila().clickCount(self.currentPhila().clickCount() +1);
-	};
-	this.setPhila =function(clickedPhila) {
-	self.currentPhila(clickedPhila);
+    if (places.length == 0) {
+      return;
+    }
+//     Clear out the old markers.
+   markers.forEach(function(marker) {
+    marker.setMap(null);
+  });
+    markers = [];
 
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+      // Create a marker for each place.
+      markers.push(new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+  });
 };
 };
-ko.applyBindings(new ViewModel());
+var viewModel = {
+	philaFav: ko.observableArray([])
+
+};
+ko.applyBindings(viewModel);
+
+/*
+// This example adds a search box to a map, using the Google Place Autocomplete
+// feature. People can enter geographical searches. The search box will return a
+// pick list containing a mix of places and predicted search terms.
+
+function initAutocomplete() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -33.8688, lng: 151.2195},
+    zoom: 13,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  // Create the search box and link it to the UI element.
+  var input = document.getElementById('pac-input');
+  var searchBox = new google.maps.places.SearchBox(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener('bounds_changed', function() {
+    searchBox.setBounds(map.getBounds());
+  });
+
+  var markers = [];
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
+
+    if (places.length == 0) {
+      return;
+    }
+
+    // Clear out the old markers.
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+      // Create a marker for each place.
+      markers.push(new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
+  });
 }
+*/
