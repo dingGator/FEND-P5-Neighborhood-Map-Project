@@ -15,9 +15,9 @@ var philaFav = [
 		lng: -75.150068,
 	},
 	{
-		name:'Franklin Square',
-		lat: 39.9555,
-		lng: -75.1508,
+		name:'Franklin Institute',
+		lat: 39.958223,
+		lng: -75.173145,
 	},
 	{
 		name:'Liberty Bell',
@@ -41,7 +41,7 @@ var philaFav = [
 var map;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 39.9520, lng: -75.1566},
+    center: {lat: 39.9500, lng: -75.1667},
     zoom: 15
   });
 for (var i =0; i< philaFav.length; i++) {
@@ -73,7 +73,7 @@ function createMarker(place) {
 
 function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 39.9520, lng: -75.1566},
+    center: {lat: 39.9500, lng: -75.1667},
     zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });

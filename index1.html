@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="UTF-8">
+    <title>Kim Neighborhood Project</title>
+    <link rel="stylesheet" href="css/style.css">
+
+
+  </head>
+  <body>
+    <h1 id="greeting" class="greeting">Philadelphia...</h1>
+    <h4 id="favList" class="greetHeader">
+      <ul>Learn Philadelphia... Know Philadelphia Favorites
+      <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+      </ul>
+    </h4>
+    <h4 class="greetHeader">Live Philadelphia... Come & Experience Philadelphia</h4>
+
+    <h4 class="greetHeader" >Love Philadelphia...Review & Revisit Philadelphia</h4>
+
+<input id="s-input" class="controls" type="search"
+    //  data-bind ="textInput: query, valueUpdate: 'keyup'"></input>
+    <div id = "listbx">
+      <h2>Sites</h2>
+      <div>
+        <ul data-bind="foreach: search()">
+          <li data-bind="text: name"></li>
+        </ul>
+      </div>
+    </div>
+    </ul>
+
+    <div id="map"></div>
+
+
+    </ul>
+      <script src="js/lib/knockout-3.2.0.js"></script>
+      <script src="js/lib/jquery.min.js"></script>
+       <script src="js/philFav1_ko.js"></script>
+     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+
+      <script src="https://maps.googleapis.com/maps/api/js?&libraries=places&callback=initAutocomplete"
+         async defer></script>
+  </body>
+</html>

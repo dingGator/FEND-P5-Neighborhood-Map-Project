@@ -1,35 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <meta charset="UTF-8">
-    <title>Kim Neighborhood Project</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
 
-     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
-        async defer>
-    </script>
+      <title>Kim Neighborhood Project</title>
+      <link rel="stylesheet" href="css/style.css">
+       <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
+        async defer></script>
+
 
   </head>
   <body>
-    <h1 id="greeting" class="greeting">Philadelphia...</h1>
-    <h4 id="favList" class="greetHeader">
-      <ul>Learn Philadelphia... Know Philadelphia Favorites
-      <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-      </ul>
+  <header id ="greeting">
+    <h1  class="greeting">Philadelphia...</h1>
+    <h4 class="greetHeader">Live Philadelphia... Come & Experience Philadelphia......
+    Learn Philadelphia... Know Philadelphia Favorites.....</h4>
+    <h4 class = "greetHeader">Love Philadelphia...Review & Revisit Philadelphia....</h4>
+  </header>
+  <main id = "searchbx">
+    <h4>
+      <input id="s-input" class="controls" type="search"
+        data-bind ="textInput: query, valueUpdate: 'keyup'">
+      </input>
     </h4>
-    <h4 class="greetHeader">Live Philadelphia... Come & Experience Philadelphia</h4>
-
-    <h4 class="greetHeader" >Love Philadelphia...Review & Revisit Philadelphia</h4>
-
-    <div id="map"></div>
-
-
+    <h1>Sites </h1>
+       <ul databind = "foreach: search()">
+       <li data-bind = "text: title"></li>
     </ul>
-      <script src="js/lib/knockout-3.2.0.js"></script>
-      <script src="js/lib/jquery.min.js"></script>
-       <script src="js/philFav_ko.js"></script>
-      <script src="https://maps.googleapis.com/maps/api/js&libraries=places&callback=initAutocomplete"
+  </main>
+
+  <div id="map"></div>
+
+    <script src="js/lib/knockout-3.2.0.js"></script>
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/philaSearch_ko.js"></script>
+    <script src="js/philaMap_ko.js"></script>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?&libraries=places&callback=initAutocomplete"
          async defer></script>
+
+
   </body>
 </html>
+
 
