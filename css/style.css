@@ -30,9 +30,9 @@ body {background-color: #CCC;}
 
 
 html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
       }
 #searchbx {
     border : 10px solid black;
@@ -41,10 +41,8 @@ html, body {
 #map {
   padding: 0px 0px 0px 0px;
   text-overflow: ellipsis;
-  width : 60%;
-  height: 60%;
   border: 10px solid black;
-  float : right;
+  height:100%;
       }
 .controls {
   margin-top: 10px;
