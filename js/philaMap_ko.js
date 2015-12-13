@@ -1,35 +1,37 @@
+var myLocation = "";
+
 var philaFav = [
-	{
+	{ "myLocation":"National Constitution Center",
 		name:'National Constitution Center',
 		lat:39.953904,
 		lng:-75.149066,
 	},
-	{
+	{ "myLocation":"Philadelphia Museum of Art",
 		name:'Philadelphia Museum of Art',
 		lat: 39.965590,
 		lng: -75.180998,
 	},
-	{
+	{ "myLocation":"Independence Hall",
 		name:'Independence Hall',
 		lat: 39.94880,
 		lng: -75.150068,
 	},
-	{
+	{ "myLocation":"Franklin Square",
 		name:'Franklin Square',
 		lat: 39.9555,
 		lng: -75.1508,
 	},
-	{
+	{ "myLocation":"Liberty Bell",
 		name:'Liberty Bell',
 		lat: 39.949702,
 		lng: -75.150219,
 	},
-	{
+	{ "myLocation":"Reading Terminal Market",
 		name:'Reading Terminal Market',
 		lat: 39.952614,
 		lng: -75.159444,
 	},
-	{
+	{  "myLocation":"Chinatown",
 		name:'Chinatown',
 		lat: 39.954568,
 		lng: -75.156084,
@@ -37,6 +39,7 @@ var philaFav = [
 
 
 ]
+
 
 var map;
 function initMap() {
@@ -133,3 +136,24 @@ function initAutocomplete() {
     map.fitBounds(bounds);
   });
 }
+var viewModel = function() {
+  var self = this;
+  self.points = ko.observableArray(philaFav);
+
+  self.query = ko.observable('');
+  self.search = ko.computed(function(){
+    return ko.utils.arrayFilter(self.points(),
+  function(point){
+      return point.myLocation.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
+    });
+    });
+  };
+
+
+ko.applyBindings(new viewModel());
+
+
+
+
+
+
