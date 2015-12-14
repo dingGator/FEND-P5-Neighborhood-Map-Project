@@ -13,18 +13,18 @@ body {background-color: #CCC;}
 
 .greeting {
     color:blue;
-    text-shadow: 1px 1px 3px rgba(255,255,255, .5);
+    text-shadow: 1px 1px 10px rgba(255,255,255, .5);
     text-align: center;
 }
 .greetHeader {
     color:black;
-    text-shadow: 1px 1px 3px rgba(255,255,255, .5);
+    text-shadow: 1px 1px 10px rgba(255,255,255, .5);
     text-align: center;
 }
 
 .greetList {
     color:black;
-    text-shadow: 1px 1px 3px rgba(255,255,255, .5);
+    text-shadow: 1px 1px 10px rgba(255,255,255, .5);
     text-align: left;
 }
 
@@ -35,14 +35,14 @@ html, body {
     padding: 0;
       }
 #searchbx {
-    border : 10px solid black;
+    border : 5px solid black;
 }
 
 #map {
   padding: 0px 0px 0px 0px;
   text-overflow: ellipsis;
-  border: 10px solid black;
-  height:100%;
+  border: 5px solid black;
+  height:90%;
       }
 .controls {
   margin-top: 10px;
@@ -86,32 +86,3 @@ html, body {
   font-weight: 300;
 }
 
-/*
-.wikipedia-container {
-    float:right;
-    width:290px;
-    padding:10px;
-    margin-right: 10px;
-    background-color: rgba(255,255,255,0.7);
-}
-
-.nytimes-container {
-    padding: 10px;
-    margin-right:300px;
-    background-color: rgba(255,255,255,0.7);
-}
-
-.article-list {
-    margin: 0;
-    padding: 0;
-}
-
-.article {
-    list-style-type: none;
-    padding:10px;
-    border-top: 1px solid #CCC;
-}
-.article:first-child {
-    border-top:none;
-}
-*/

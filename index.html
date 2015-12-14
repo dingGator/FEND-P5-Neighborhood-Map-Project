@@ -25,11 +25,9 @@
     </h4>
     <div id="listbx">
       <h2>Sites</h2>
-      <div>
-        <ul data-bind="foreach: search()">
-          <li data-bind="text: myLocation"></li>
+         <ul data-bind="foreach: search()">
+          <button type="submit" value="Submit" data-bind="text: myLocation"></button>
         </ul>
-      </div>
     </div>
 
 
@@ -42,10 +40,6 @@
   <script src="js/philaMap_ko.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
           async defer></script>
-  <!--<script src="https://maps.googleapis.com/maps/api/js?&libraries=places&?callback=initAutocomplete"-->
-         <!--async defer></script>-->
-
-
   </body>
 </html>
 
