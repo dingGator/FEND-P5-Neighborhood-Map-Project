@@ -13,20 +13,6 @@ var philaFav = [
 		lng:-75.149066,
   },
 	{
-    "myLocation":"Philadelphia Museum of Art",
-		name:'PHILADELPHIA MUSEUM OF ART'+
-    ' \n Quick Facts: The Philadelphia Museum of Art '+
-    ' \n It has collections of more than 227,000 objects that '+
-    ' \n include world-class holdings of European and '+
-    ' \n American paintings, prints, drawings, and decorative '+
-    ' \n arts.Wikipedia ',
-
-    lat: 39.965590,
-		lng: -75.180998,
-
-
-	},
-	{
     "myLocation":"Independence Hall",
 		name:'INDEPENDENCE HALL'+
     ' \n Quick Facts: Independence National Historical Park'+
@@ -103,6 +89,7 @@ for (var i =0; i< philaFav.length; i++) {
     map: map,
     title: philaFav[i].name
   });
+  philaFav[i].marker = marker;
 };
 
 var infowindow;
@@ -114,33 +101,36 @@ function createMarker(place) {
     	position: place.geometry.location
   });
 
-  google.maps.event.addListener(marker, 'click', function() {
+
     infowindow.setContent(name);
+
     infowindow.open(map, this);
-  });
-
-
-};
-
-};
-var viewModel = function() {
-  var self = this;
-  self.points = ko.observableArray(philaFav);
-
-  self.query = ko.observable('');
-  self.search = ko.computed(function(){
-    return ko.utils.arrayFilter(self.points(),
-  function(point){
-      return point.myLocation.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
-    });
-    });
   };
 
 
+};
+var viewModel = function() {
+var self = this;
+self.points = ko.observableArray(philaFav);
+self.query = ko.observable('');
+//point.marker.setMap(null);
+self.search = ko.computed(function(){
+    //point.marker.setMap(null),
+    return ko.utils.arrayFilter(self.points(),
+    //    point.marker.setMap(null),
+    function(point){
+    //    point.marker.setMap(null);
+        return point.myLocation.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
+    //    point.marker.setMap(null);
+
+    });
+    //point.marker.setMap(null);
+
+    });
+
+    //point.marker.setMap(null);
+  };
+
 ko.applyBindings(new viewModel());
-
-
-
-
 
 
