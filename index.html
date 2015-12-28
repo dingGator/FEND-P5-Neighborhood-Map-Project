@@ -16,30 +16,45 @@
     <h4 class="greetHeader">Live Philadelphia... Come & Experience Philadelphia......
     Learn Philadelphia... Know Philadelphia Favorites.....</h4>
     <h4 class = "greetHeader">Love Philadelphia...Review & Revisit Philadelphia....</h4>
-
   </header>
 
-  <main id = "searchbx" class="col-sm-3">
-    <h4>
-      <input id="s-input" class="controls" type="search"
-        data-bind ="textInput: query, valueUpdate: 'keyup'">
-      </input>
-    </h4>
+    <main id = "searchbx" class="col-sm-3">
     <div id="listbx">
+      <input type="text" id="city" value="" class="controls" type="   search"
+          data-bind ="textInput: query, valueUpdate: 'keyup'">
+
       <h2>Sites</h2>
          <ul data-bind="foreach: search()">
-          <button type="submit" value="Submit" data-bind="text: myLocation"></button>
+
+          <button type="submit" value="Submit" data-bind="text: myLocation">
+          </button>
+
+      <h4>
+      <form id="form-container" class="form-container">
+        <li class="wikipedia-container">
+              <h3 id="wikipedia-header" >Relevant Wikipedia Links
+              </h3>
+
+        </li>
+      </form>
+
+    </h4>
+
+
         </ul>
+
     </div>
 
 
   </main>
   <div id="map" class="col-sm-9"></div>
 
-
-  <script src="js/lib/knockout-3.4.0.js"></script>
   <script src="js/lib/jquery-2.1.4.min.js"></script>
-  <script src="js/philaMap_ko.js"></script>
+  <script src="js/script_ko.js"></script>
+  <script src="js/lib/knockout-3.4.0.js"></script>
+
+  <script src="js/philaFav_ko.js"></script>
+
   <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
           async defer></script>
   </body>

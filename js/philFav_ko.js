@@ -84,7 +84,8 @@ function initAutocomplete() {
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
   // Bias the SearchBox results towards current map's viewport.
-  map.addListener('bounds_changed', function() {
+  map.addListener('bounds_changed
+    ', function() {
     searchBox.setBounds(map.getBounds());
   });
 
@@ -114,7 +115,13 @@ function initAutocomplete() {
         anchor: new google.maps.Point(17, 34),
         scaledSize: new google.maps.Size(25, 25)
       };
-
+      if (point.myLocation.toLowerCase().indexOf(self.query().toLowerCase()) >= 0) {
+        point.marker.setMap(map);
+        return true;
+      } else {
+      point.marker.setMap(null);
+      return false;
+      };
       // Create a marker for each place.
       markers.push(new google.maps.Marker({
         map: map,

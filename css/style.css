@@ -86,8 +86,6 @@ html, body {
   font-weight: 300;
 }
 
-/* {box-sizing:border-box;}
-//body {background-color: #CCC;}
 
 .bgimg {
     position:fixed;
@@ -103,12 +101,13 @@ html, body {
     text-shadow: 1px 1px 10px rgba(255,255,255, .5);
     text-align: center;
 }
-/*
+
 .wikipedia-container {
     float:right;
     width:290px;
     padding:10px;
     margin-right: 10px;
+    border : 5px solid black;
     background-color: rgba(255,255,255,0.7);
 }
 
@@ -131,4 +130,3 @@ html, body {
 .article:first-child {
     border-top:none;
 }
-*/

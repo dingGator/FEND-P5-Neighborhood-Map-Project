@@ -4,35 +4,20 @@ var quickFacts = "";
 var philaFav = [
 	{
     "myLocation":"National Constitution Center",
-		name:'NATIONAL CONSTITUTION CENTER '+
-    ' \n Quick Facts: The National Constitution Center '+
-    ' \n is a nonprofit, nonpartisan institution devoted'+
-    ' \n to Disnifying the United States Constitution and'+
-    ' \n what it represents.Wikipedia',
+		name:'NATIONAL CONSTITUTION CENTER ',
 		lat:39.953904,
 		lng:-75.149066,
   },
 	{
     "myLocation":"Independence Hall",
-		name:'INDEPENDENCE HALL'+
-    ' \n Quick Facts: Independence National Historical Park'+
-    ' \n is a United States National Park in Philadelphia that'+
-    ' \n preserves several sites associated with the' +
-    ' \n American Revolution and the nation founding history.Wikipedia'+
-    ' \n Area:40 acres, Architect:William Strickland,' +
-    ' \n Established:July 4, 1956',
+		name:'INDEPENDENCE HALL',
 		lat: 39.94880,
 		lng: -75.150068,
 
 	},
 	{
     "myLocation":"Franklin Square",
-		name:'FRANKLIN SQUARE' +
-    ' \n Quick Facts": Franklin Square is one of the five' +
-    ' \n original open-space parks'+
-    ' \n planned by William Penn when he laid out the'+
-    ' \n city of Philadelphia, Pennsylvania in 1682.Wikipedia'+
-    ' \n Area:8 acres, Year built:1683, Architect:Thomas Holme',
+		name:'FRANKLIN SQUARE' ,
 
     lat: 39.9555,
 		lng: -75.1508,
@@ -40,34 +25,21 @@ var philaFav = [
 	},
 	{
     "myLocation":"Liberty Bell",
-		name:'LIBERTY BELL' +
-    ' \n Quick Facts": "The Liberty Bell is an iconic symbol of' +
-    ' \n American independence, located in Philadelphia, Pennsylvania.'+
-    ' \n Wikipedia, Owners:Philadelphia, Materials:CopperTin,'+
-    ' \n Municipality:Philadelphia',
+		name:'LIBERTY BELL',
 		lat: 39.949702,
 		lng: -75.150219,
 
 	},
 	{
     "myLocation":"Reading Terminal Market",
-		name:'READING TERMINAL MARKET' +
-		' \n Quick Facts: The Reading Terminal is a complex of' +
-    ' \n buildings and former railroad station located in the Market'+
-    ' \n last section of Center City in the city of Philadelphia,'+
-    ' \n Pennsylvania, United States.Wikipedia'+
-    ' \n Area:4 acres, Architect:Francis H. Kimball',
+		name:'READING TERMINAL MARKET',
     lat: 39.952614,
 		lng: -75.159444,
 
 	},
 	{
     "myLocation":"Chinatown",
-		name:'CHINATOWN'+
-		' \n Quick Facts": "Philadelphia Chinatown is a predominantly' +
-    ' \n Asian American neighborhood in Center City Philadelphia.'+
-    ' \n The Philadelphia Chinatown Development Corporation supports' +
-    ' \n the area.Wikipedia',
+		name:'CHINATOWN',
     lat: 39.954568,
 		lng: -75.156084,
 
@@ -107,29 +79,46 @@ function createMarker(place) {
     infowindow.open(map, this);
   };
 
+function initAutocomplete() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 39.9520, lng: -75.1566},
+    zoom: 13,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  // Create the search box and link it to the UI element.
+  var input = document.getElementById('pac-input');
+  var searchBox = new google.maps.places.SearchBox(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener('bounds_changed', function() {
+    searchBox.setBounds(map.getBounds());
+  });
 
 };
 var viewModel = function() {
-var self = this;
-self.points = ko.observableArray(philaFav);
-self.query = ko.observable('');
-//point.marker.setMap(null);
-self.search = ko.computed(function(){
-    //point.marker.setMap(null),
+  var self = this;
+  self.points = ko.observableArray(philaFav);
+  self.query = ko.observable('');
+  self.search = ko.computed(function(){
     return ko.utils.arrayFilter(self.points(),
-    //    point.marker.setMap(null),
     function(point){
-    //    point.marker.setMap(null);
-        return point.myLocation.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
-    //    point.marker.setMap(null);
+        if (point.marker) {
+          if (point.myLocation.toLowerCase().indexOf(self.query().toLowerCase()) >= 0) {
+            point.marker.setMap(map);
+            return true;
+          } else {
+            point.marker.setMap(null);
+            return false;
+          }
+      }
+    })
 
-    });
-    //point.marker.setMap(null);
+    })
 
-    });
+  }
 
-    //point.marker.setMap(null);
-  };
 
 ko.applyBindings(new viewModel());
 
